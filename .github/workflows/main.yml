@@ -49,9 +49,9 @@ jobs:
     - name: Build
       run: |
         "${GITHUB_WORKSPACE}/bin/bazel" build //...
-    - name: Test
-      run: |
-        "${GITHUB_WORKSPACE}/bin/bazel" test --test_output=errors //...
+    #- name: Test
+    #  run: |
+    #    "${GITHUB_WORKSPACE}/bin/bazel" test --test_output=errors //...
     - name: Deploy to k8
       run: |
-        "${GITHUB_WORKSPACE}/bin/bazel" run :staging.apply
+        "${GITHUB_WORKSPACE}/bin/bazel" run //deployment/kubernetes:ns-staging.apply

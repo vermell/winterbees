@@ -1,4 +1,3 @@
-
 load("@io_bazel_rules_k8s//k8s:k8s_go_deps.bzl", k8s_go_deps = "deps")
 load("@io_bazel_rules_k8s//k8s:k8s.bzl", "k8s_defaults")
 
