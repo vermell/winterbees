@@ -1,0 +1,7 @@
+load("//build_tools/python:py.bzl", "py_binary")
+
+py_binary(
+    name = "hello_world_app",
+    srcs = ["hello_world.py"],
+    main = "hello_world.py",
+)
