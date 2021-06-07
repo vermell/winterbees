@@ -1,0 +1,26 @@
+build --remote_cache=http://master1.dev2.solactive.com:9090
+test --define=GIT_REVISION=latest
+build --define=GIT_REVISION=latest
+run --define=GIT_REVISION=latest
+
+build --experimental_strict_action_env
+build --platforms @dbx_build_tools//build_tools/cc:linux-x64-drte-v3
+build --host_platform @dbx_build_tools//build_tools/cc:linux-x64-drte-v3
+build --sandbox_fake_username
+
+# Maybe disable network -> but currently not working due to failing tests
+#build --modify_execution_info=TestRunner=+block-network
+
+# Work around https://github.com/bazelbuild/bazel/issues/6293 by setting a
+# dummy lcov.
+coverage --test_env=LCOV_MERGER=/bin/true
+
+# Use our custom-configured c++ toolchain.
+
+build:drte_config --crosstool_top=@custom_drte_toolchain//:drte-v3
+# Use --cpu as a differentiator.
+
+# Use the default Bazel C++ toolchain to build the tools used during the
+# build.
+
+build:clang_config --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
