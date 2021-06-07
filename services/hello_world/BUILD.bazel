@@ -1,7 +1,21 @@
-load("//build_tools/python:py.bzl", "py_binary")
+load("//build_tools/python:py.bzl", "py_library", "py_pytest")
+load(
+    "@dbx_build_tools//build_tools/py:py.bzl",
+    "dbx_py_binary",
+    "dbx_py_pytest_test",
+)
 
-py_binary(
+py_library(
     name = "hello_world_app",
     srcs = ["hello_world.py"],
-    main = "hello_world.py",
+    python2_compatible = False,
+    pythonpath = "services",
+    visibility = ["//visibility:public"],
+)
+
+py_pytest(
+    name = "test_foo",
+    srcs = ["test/test_foo.py"],
+    deps = [":hello_world_app"],
+    python2_compatible = False,
 )

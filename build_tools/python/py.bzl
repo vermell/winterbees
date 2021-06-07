@@ -5,11 +5,11 @@ load("@dbx_build_tools//build_tools/py:py.bzl",
 )
 
 def py_library(**kwargs):
-    dbx_py_library(**kwargs)
+    return dbx_py_library(**kwargs)
 
 def py_binary(**kwargs):
-    dbx_py_binary(**kwargs)
+    return dbx_py_binary(**kwargs)
 
 def py_pytest(**kwargs):
-    dbx_py_pytest_test(**kwargs)
+    return dbx_py_pytest_test(**kwargs)
 
