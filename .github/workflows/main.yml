@@ -48,10 +48,10 @@ jobs:
         kubectl get pods --all-namespaces
     - name: Build
       run: |
-        "${GITHUB_WORKSPACE}/bin/bazel" build //...
+        "${GITHUB_WORKSPACE}/bin/bazel" build --config=drte_config //...
     - name: Test
       run: |
-        "${GITHUB_WORKSPACE}/bin/bazel" test --test_output=errors //...
+        "${GITHUB_WORKSPACE}/bin/bazel" test --config=drte_config --test_output=errors //...
     - name: Deploy to k8
       run: |
-        "${GITHUB_WORKSPACE}/bin/bazel" run //deployment/kubernetes:ns-staging.apply
+        "${GITHUB_WORKSPACE}/bin/bazel" run --config=drte_config //deployment:winterbees-staging.apply
