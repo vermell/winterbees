@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world-staging
+  template:
+    metadata:
+      labels:
+        app: hello-world-staging
+    spec:
+      containers:
+      - name: hello-world
+        image: hello-world-image:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

@@ -3,4 +3,5 @@ load("@k8s_deploy//:defaults.bzl", "k8s_deploy")
 k8s_deploy(
     name = "ns-staging",
     template = "namespace-staging.yaml",
+    visibility = ["//visibility:public"],
 )
