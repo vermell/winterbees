@@ -4,6 +4,7 @@ load(
     "dbx_py_binary",
     "dbx_py_pytest_test",
 )
+load("//build_tools/python:custom_container.bzl", "dbx_image")
 
 py_library(
     name = "hello_world_app",
@@ -16,6 +17,14 @@ py_library(
 py_pytest(
     name = "test_foo",
     srcs = ["test/test_foo.py"],
-    deps = [":hello_world_app"],
     python2_compatible = False,
+    deps = [":hello_world_app"],
+)
+
+dbx_image(
+    name = "hello_world_image",
+    main = "hello_world.py",
+    scrs = ["hello_world.py"],
+    visibility = ["//visibility:public"],
+    base = "//:base_python",
 )

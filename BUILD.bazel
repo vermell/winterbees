@@ -1,0 +1,16 @@
+load("@io_bazel_rules_docker//container:image.bzl", "container_image")
+genrule(
+    name = "drte_runtime",
+    srcs = ["@drte_runtime_deb//file"],
+    outs = ["drte_runtime.deb"],
+    cmd = "cp $< $@",
+)
+
+container_image(
+    name = "base_python",
+    visibility = ["//visibility:public"],
+    # References container_pull from WORKSPACE (above)
+    #base = "@python3.8.3_slim_buster//image",
+    base = "@ubuntu_image_base//image",
+    debs = [":drte_runtime"],
+)
