@@ -4,7 +4,8 @@ k8s_deploy(
     name = "hello_world_service",
     images = {
         # Simulate a typo
-        #"hello-world-image:latest": "//examples/hellohttp/go:server",
+        "vermell/winterbees:latest": "//services/hello_world:hello_world_image",
     },
     template = "deployment.yaml",
+    visibility = ["//visibility:public"],
 )
