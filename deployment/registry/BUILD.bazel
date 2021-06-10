@@ -1,0 +1,13 @@
+load("@k8s_deploy//:defaults.bzl", "k8s_deploy")
+
+k8s_deploy(
+    name = "private-registry",
+    template = "private-registry.yaml",
+    visibility = ["//visibility:public"],
+)
+
+k8s_deploy(
+    name = "private-registry-svc",
+    template = "private-registry-svc.yaml",
+    visibility = ["//visibility:public"],
+)
