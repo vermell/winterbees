@@ -32,7 +32,7 @@ spec:
           - name: REGISTRY_HTTP_TLS_CERTIFICATE
             value: "/certs/registry.crt"
           - name: REGISTRY_HTTP_TLS_KEY
-            value: "/certs/registry.key.pem"
+            value: "/certs/registry.key"
           ports:
             - containerPort: 5000
           volumeMounts:
