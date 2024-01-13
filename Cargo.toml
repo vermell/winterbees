@@ -1,4 +1,5 @@
 [workspace]
 members = [
-    "search-engine"
+    "search-engine",
+    "api"
 ]
