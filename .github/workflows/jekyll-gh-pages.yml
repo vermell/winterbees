@@ -33,7 +33,7 @@ jobs:
       - name: Build with Jekyll
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: '3.0'
           working-directory: ./docs/
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Build page
