@@ -1,22 +1,24 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use] extern crate rocket;
+#[macro_use]
+extern crate rocket;
 
 use rocket_okapi::{openapi, openapi_get_routes, swagger_ui::*};
 
-#[openapi(tag = "Users")]
-#[get("/")]
-fn index() -> &'static str {
+#[openapi(tag = "Collections")]
+#[post("/_collection/<name>")]
+fn create_collection(name: &str) -> &'static str {
     "Hello, world!"
 }
 
-#[rocket::main]
-async fn main() {
-    let launch_result = rocket::build()
+
+#[launch]
+fn rocket() -> _ {
+    rocket::build()
         .mount(
             "/",
             openapi_get_routes![
-                index
+                create_collection
             ],
         )
         .mount(
@@ -26,10 +28,19 @@ async fn main() {
                 ..Default::default()
             }),
         )
-        .launch()
-        .await;
-    match launch_result {
-        Ok(_) => println!("Rocket shut down gracefully."),
-        Err(err) => println!("Rocket had an error: {}", err),
-    };
+}
+
+
+#[cfg(test)]
+mod test {
+    use super::rocket;
+    use rocket::local::blocking::Client;
+    use rocket::http::Status;
+
+    #[test]
+    fn should_create_collection() {
+        let client = Client::tracked(rocket()).expect("valid rocket instance");
+        let response = client.post("/_collection/foo").dispatch();
+        assert_eq!(response.status(), Status::Ok);
+    }
 }
