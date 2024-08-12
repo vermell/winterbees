@@ -1,7 +1,3 @@
 [workspace]
-
-members = [
-    "search-engine",
-    "api",
-    "algebra"
-]
+resolver = "2"
+members = ["search-engine", "algebra"]
