@@ -1,7 +1,16 @@
+use std::ops::Add;
+
 pub trait Tensor<T> {}
 
 #[derive(Debug, PartialEq)]
 pub struct Scalar<T>(T);
+
+impl<T: Add<Output = T>> Add for Scalar<T> {
+    type Output = Self;
+    fn add(self, other: Self) -> Self::Output {
+        Self(self.0 + other.0)
+    }
+}
 
 #[cfg(test)]
 mod tests {
@@ -9,7 +18,13 @@ mod tests {
 
     #[test]
     fn should_init_scalar() {
-        let result = Scalar(3); //Scalar(2) + Scalar(1);
-        assert_eq!(result, Scalar(3));
+        let result = Scalar(1); //Scalar(2) + Scalar(1);
+        assert_eq!(result, Scalar(1));
+    }
+
+    #[test]
+    fn should_add_scalar() {
+        let result = Scalar(2) + Scalar(1);
+        assert_eq!(result, Scalar(3))
     }
 }
