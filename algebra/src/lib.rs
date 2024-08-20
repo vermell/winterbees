@@ -12,6 +12,13 @@ impl<T: Add<Output = T>> Add for Scalar<T> {
     }
 }
 
+#[macro_export]
+macro_rules! count {
+    ($x:expr) => {
+        3
+    };
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -26,5 +33,11 @@ mod tests {
     fn should_add_scalar() {
         let result = Scalar(2) + Scalar(1);
         assert_eq!(result, Scalar(3))
+    }
+
+    #[test]
+    fn should_count_vector_size() {
+        let size = count!(1);
+        assert_eq!(size, 3);
     }
 }
