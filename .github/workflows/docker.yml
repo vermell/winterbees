@@ -19,6 +19,11 @@ jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      packages: write
+      contents: read
+      attestations: write
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
@@ -42,6 +47,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
       
       - name: Build and push Docker image
+        id: push
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
@@ -49,4 +55,11 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Attest
+        uses: actions/attest-build-provenance@v1
+        id: attest
+        with:
+          subject-name: index.docker.io/vermell/winterbees
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
 
